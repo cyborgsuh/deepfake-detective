@@ -1,5 +1,23 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
+
+const trainingData = [
+  { epoch: 1, pretrained: 0.75, nonPretrained: 0.65 },
+  { epoch: 20, pretrained: 0.85, nonPretrained: 0.72 },
+  { epoch: 40, pretrained: 0.92, nonPretrained: 0.78 },
+  { epoch: 60, pretrained: 0.94, nonPretrained: 0.82 },
+  { epoch: 80, pretrained: 0.95, nonPretrained: 0.88 },
+  { epoch: 100, pretrained: 0.958, nonPretrained: 0.925 },
+];
+
+const metricsData = [
+  { name: 'Accuracy', pretrained: 0.958, nonPretrained: 0.925 },
+  { name: 'Precision', pretrained: 0.962, nonPretrained: 0.918 },
+  { name: 'Recall', pretrained: 0.955, nonPretrained: 0.931 },
+  { name: 'F1 Score', pretrained: 0.94, nonPretrained: 0.91 },
+];
 
 const ModelComparison = () => {
   return (
@@ -21,7 +39,84 @@ const ModelComparison = () => {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-6 mt-8">
+        {/* Training Progress Chart */}
+        <Card className="mt-8 backdrop-blur-sm bg-card/50 border-primary/20 hover:border-primary/40 transition-colors">
+          <CardHeader>
+            <CardTitle>Training Progress</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[400px] w-full">
+              <ChartContainer
+                config={{
+                  pretrained: { color: "#3b82f6" },
+                  nonPretrained: { color: "#ef4444" },
+                }}
+              >
+                <LineChart data={trainingData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="epoch" />
+                  <YAxis />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="pretrained"
+                    name="Pretrained ResNet50"
+                    stroke="#3b82f6"
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="nonPretrained"
+                    name="Non-pretrained ResNet34"
+                    stroke="#ef4444"
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                </LineChart>
+              </ChartContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Metrics Comparison Chart */}
+        <Card className="mt-6 backdrop-blur-sm bg-card/50 border-primary/20 hover:border-primary/40 transition-colors">
+          <CardHeader>
+            <CardTitle>Performance Metrics Comparison</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[400px] w-full">
+              <ChartContainer
+                config={{
+                  pretrained: { color: "#3b82f6" },
+                  nonPretrained: { color: "#ef4444" },
+                }}
+              >
+                <BarChart data={metricsData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis domain={[0.8, 1]} />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Legend />
+                  <Bar
+                    dataKey="pretrained"
+                    name="Pretrained ResNet50"
+                    fill="#3b82f6"
+                  />
+                  <Bar
+                    dataKey="nonPretrained"
+                    name="Non-pretrained ResNet34"
+                    fill="#ef4444"
+                  />
+                </BarChart>
+              </ChartContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Original Tables */}
+        <div className="grid md:grid-cols-2 gap-6 mt-6">
           <Card className="backdrop-blur-sm bg-card/50 border-primary/20 hover:border-primary/40 transition-colors">
             <CardHeader>
               <CardTitle>Non-pretrained ResNet34</CardTitle>
