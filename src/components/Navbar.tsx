@@ -20,7 +20,7 @@ export function Navbar() {
             <span className="text-lg font-bold">DeepFake Detector</span>
           </div>
           
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="flex items-center space-x-1">
             {menuItems.map((item) => (
               <Link
                 key={item.title}
