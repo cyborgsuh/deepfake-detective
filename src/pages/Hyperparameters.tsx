@@ -1,5 +1,7 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Hover3DCard } from "@/components/ui/hover-card-3d";
 
 const Hyperparameters = () => {
   return (
@@ -22,87 +24,72 @@ const Hyperparameters = () => {
         </div>
         
         <div className="grid md:grid-cols-2 gap-6 mt-8">
-          <Card className="backdrop-blur-sm bg-card/50 border-primary/20 hover:border-primary/40 transition-colors">
-            <CardHeader>
-              <CardTitle className="text-primary">Training Parameters</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="text-primary">Parameter</TableHead>
-                    <TableHead className="text-primary">Value</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>Optimizer</TableCell>
-                    <TableCell>AdamW</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Learning Rate</TableCell>
-                    <TableCell>0.0001</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Batch Size</TableCell>
-                    <TableCell>32</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Epochs</TableCell>
-                    <TableCell>100</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
+          <Hover3DCard title="Training Parameters">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="text-primary">Parameter</TableHead>
+                  <TableHead className="text-primary">Value</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Optimizer</TableCell>
+                  <TableCell>AdamW</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Learning Rate</TableCell>
+                  <TableCell>0.0001</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Batch Size</TableCell>
+                  <TableCell>32</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Epochs</TableCell>
+                  <TableCell>100</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Hover3DCard>
 
-          <Card className="backdrop-blur-sm bg-card/50 border-primary/20 hover:border-primary/40 transition-colors">
-            <CardHeader>
-              <CardTitle className="text-primary">Regularization</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="text-primary">Technique</TableHead>
-                    <TableHead className="text-primary">Value</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>Weight Decay</TableCell>
-                    <TableCell>0.01</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Dropout Rate</TableCell>
-                    <TableCell>0.3</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Early Stopping Patience</TableCell>
-                    <TableCell>10 epochs</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
+          <Hover3DCard title="Regularization">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="text-primary">Technique</TableHead>
+                  <TableHead className="text-primary">Value</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Weight Decay</TableCell>
+                  <TableCell>0.01</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Dropout Rate</TableCell>
+                  <TableCell>0.3</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Early Stopping Patience</TableCell>
+                  <TableCell>10 epochs</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Hover3DCard>
         </div>
 
-        <Card className="mt-6 backdrop-blur-sm bg-card/50 border-primary/20 hover:border-primary/40 transition-colors">
-          <CardHeader>
-            <CardTitle className="text-primary">Parameter Selection Process</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground mb-4">
-              Hyperparameters were selected through a combination of:
-            </p>
-            <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-              <li>Grid search for learning rate and batch size</li>
-              <li>Cross-validation to prevent overfitting</li>
-              <li>Manual fine-tuning based on validation performance</li>
-              <li>Industry best practices for similar architectures</li>
-            </ul>
-          </CardContent>
-        </Card>
+        <Hover3DCard className="mt-6" title="Parameter Selection Process">
+          <p className="text-muted-foreground mb-4">
+            Hyperparameters were selected through a combination of:
+          </p>
+          <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+            <li>Grid search for learning rate and batch size</li>
+            <li>Cross-validation to prevent overfitting</li>
+            <li>Manual fine-tuning based on validation performance</li>
+            <li>Industry best practices for similar architectures</li>
+          </ul>
+        </Hover3DCard>
 
         {/* Floating Elements */}
         <div className="absolute top-20 right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse" />
