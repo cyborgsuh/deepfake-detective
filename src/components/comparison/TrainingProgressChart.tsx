@@ -10,15 +10,15 @@ export const TrainingProgressChart = () => {
       <CardHeader>
         <CardTitle>Training Progress</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="h-[400px] w-full">
+      <CardContent className="relative">
+        <div className="h-[400px] w-full relative z-20">
           <ChartContainer
             config={{
               pretrained: { color: "hsl(var(--primary))" },
               nonPretrained: { color: "hsl(var(--destructive))" },
             }}
           >
-            <LineChart data={trainingData}>
+            <LineChart data={trainingData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
               <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
               <XAxis 
                 dataKey="epoch" 
@@ -28,7 +28,7 @@ export const TrainingProgressChart = () => {
                 stroke="hsl(var(--muted-foreground))"
               />
               <ChartTooltip content={<ChartTooltipContent />} />
-              <Legend />
+              <Legend wrapperStyle={{ bottom: -40 }} />
               <Line
                 type="monotone"
                 dataKey="pretrained"

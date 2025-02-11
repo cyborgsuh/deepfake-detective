@@ -10,15 +10,15 @@ export const MetricsComparisonChart = () => {
       <CardHeader>
         <CardTitle>Performance Metrics Comparison</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="h-[400px] w-full">
+      <CardContent className="relative">
+        <div className="h-[400px] w-full relative z-20">
           <ChartContainer
             config={{
               pretrained: { color: "hsl(var(--primary))" },
               nonPretrained: { color: "hsl(var(--destructive))" },
             }}
           >
-            <BarChart data={metricsData}>
+            <BarChart data={metricsData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
               <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
               <XAxis 
                 dataKey="name" 
@@ -29,7 +29,7 @@ export const MetricsComparisonChart = () => {
                 stroke="hsl(var(--muted-foreground))"
               />
               <ChartTooltip content={<ChartTooltipContent />} />
-              <Legend />
+              <Legend wrapperStyle={{ bottom: -40 }} />
               <Bar
                 dataKey="pretrained"
                 name="Pretrained ResNet50"
