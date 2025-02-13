@@ -7,6 +7,7 @@ import torchvision.transforms as transforms
 import io
 from typing import Type, TypeVar, List
 import numpy as np
+from resnet import ResNet, BasicBlock
 
 app = FastAPI()
 
@@ -23,16 +24,17 @@ app.add_middleware(
 # ... (Copy the BasicBlock and ResNet classes here)
 
 # Global variable to store the model
-model = None
+model = ResNet(img_channels=3, num_layers=50, block=BasicBlock, num_classes=2)
+model.load_state_dict(torch.load("not-pretrained-1 ResNet 50.pth", weights_only=True))
 
 @app.get("/load-model")
 async def load_model():
     global model
     try:
         # Initialize the model
-        model = ResNet(img_channels=3, num_layers=50, block=BasicBlock, num_classes=1000)
+        model = ResNet(img_channels=3, num_layers=18, block=BasicBlock, num_classes=2)
         # Load the pre-trained weights
-        model.load_state_dict(torch.load("not-pretrained-1 ResNet 50.pth"))
+        model.load_state_dict(torch.load("not-pretrained-1 ResNet 50.pth",weights_only=True))
         model.eval()
         return {"message": "Model loaded successfully"}
     except Exception as e:
@@ -49,11 +51,9 @@ async def predict(file: UploadFile = File(...)):
         image = Image.open(io.BytesIO(image_data))
         
         transform = transforms.Compose([
-            transforms.Resize(256),
-            transforms.CenterCrop(224),
+            transforms.Resize((256, 256)),
             transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], 
-                               std=[0.229, 0.224, 0.225])
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
         
         image_tensor = transform(image).unsqueeze(0)
@@ -69,4 +69,4 @@ async def predict(file: UploadFile = File(...)):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, port=8080)
