@@ -20,22 +20,12 @@ export const loadModel = async () => {
 };
 
 export const predictImage = async (imageData: FormData) => {
-  console.log("Sending prediction request with data:", imageData.get('file'));  // Debug log
-  
   try {
     const response = await axios.post(`${API_URL}/predict`, imageData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-      // Add timeout and validate status
-      timeout: 30000,
-      validateStatus: (status) => status >= 200 && status < 500,
     });
-    
-    if (response.status !== 200) {
-      throw new Error(`Server returned status ${response.status}`);
-    }
-    
     return response.data;
   } catch (error) {
     console.error("Error making prediction:", error);
