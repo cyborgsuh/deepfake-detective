@@ -1,13 +1,16 @@
+
 import { useState, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { loadModel, predictImage } from "@/utils/modelLoader";
 import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
 
 export const ModelViewer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [prediction, setPrediction] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -30,20 +33,34 @@ export const ModelViewer = () => {
     }
   };
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file) return;
+    if (file) {
+      setSelectedFile(file);
+      setPrediction(null); // Reset prediction when new file is selected
+    }
+  };
 
-    const formData = new FormData();
-    formData.append('file', file);
+  const handlePredict = async () => {
+    if (!selectedFile) {
+      toast({
+        title: "No Image Selected",
+        description: "Please select an image first",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setIsLoading(true);
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+
     try {
       const result = await predictImage(formData);
       setPrediction(result.prediction);
       toast({
         title: "Prediction Complete",
-        description: `Predicted class: ${result.prediction}`,
+        description: `Predicted class: ${result.prediction === "0" ? "Real" : "Fake"}`,
       });
     } catch (error) {
       toast({
@@ -51,6 +68,7 @@ export const ModelViewer = () => {
         description: "Failed to make prediction. See console for details.",
         variant: "destructive",
       });
+      console.error("Prediction error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -66,26 +84,52 @@ export const ModelViewer = () => {
           <p className="text-muted-foreground">
             Model architecture: ResNet50 (not pre-trained)
           </p>
-          <p className="text-muted-foreground">
-            Model file: not-pretrained-1 ResNet 50.pth
-          </p>
           <div className="flex flex-col gap-4">
             <Button 
               onClick={handleLoadModel} 
               disabled={isLoading}
+              className="w-full"
             >
-              {isLoading ? "Loading..." : "Load Model"}
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Loading...
+                </>
+              ) : (
+                "Load Model"
+              )}
             </Button>
+            
             <Input
               ref={fileInputRef}
               type="file"
               accept="image/*"
-              onChange={handleFileUpload}
+              onChange={handleFileSelect}
               disabled={isLoading}
+              className="w-full"
             />
+
+            <Button 
+              onClick={handlePredict}
+              disabled={isLoading || !selectedFile}
+              variant="secondary"
+              className="w-full"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                "Predict"
+              )}
+            </Button>
+
             {prediction && (
               <div className="mt-4 p-4 bg-secondary rounded-lg">
-                <p className="font-medium">Prediction: {prediction}</p>
+                <p className="font-medium">
+                  Prediction: {prediction === "0" ? "Real" : "Fake"} Image
+                </p>
               </div>
             )}
           </div>
