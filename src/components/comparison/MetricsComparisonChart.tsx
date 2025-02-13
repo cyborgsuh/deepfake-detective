@@ -18,7 +18,7 @@ export const MetricsComparisonChart = () => {
               nonPretrained: { color: "hsl(var(--destructive))" },
             }}
           >
-            <BarChart data={metricsData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
+            <BarChart data={metricsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
               <XAxis 
                 dataKey="name" 
@@ -29,7 +29,13 @@ export const MetricsComparisonChart = () => {
                 stroke="hsl(var(--muted-foreground))"
               />
               <ChartTooltip content={<ChartTooltipContent />} />
-              <Legend wrapperStyle={{ bottom: 20 }} />
+              <Legend
+                verticalAlign="bottom"
+                align="center"
+                height={36}
+                iconSize={10}
+                iconType="circle"
+              />
               <Bar
                 dataKey="pretrained"
                 name="Pretrained ResNet50"

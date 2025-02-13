@@ -18,7 +18,7 @@ export const TrainingProgressChart = () => {
               nonPretrained: { color: "hsl(var(--destructive))" },
             }}
           >
-            <LineChart data={trainingData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
+            <LineChart data={trainingData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
               <XAxis 
                 dataKey="epoch" 
@@ -28,7 +28,13 @@ export const TrainingProgressChart = () => {
                 stroke="hsl(var(--muted-foreground))"
               />
               <ChartTooltip content={<ChartTooltipContent />} />
-              <Legend wrapperStyle={{ bottom: -40 }} />
+              <Legend
+                verticalAlign="bottom"
+                align="center"
+                height={36}
+                iconSize={10}
+                iconType="circle"
+              />
               <Line
                 type="monotone"
                 dataKey="pretrained"
