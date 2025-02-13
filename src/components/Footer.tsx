@@ -13,11 +13,11 @@ export const Footer = () => {
             rel="noreferrer"
             className="font-medium underline underline-offset-4"
           >
-            Your Name
+            Mohammed Suhaib
           </a>
           . The source code is available on{" "}
           <a
-            href="https://github.com/yourusername/deepfake-detective"
+            href="https://github.com/cyborgsuh/deepfake-detective"
             target="_blank"
             rel="noreferrer"
             className="font-medium underline underline-offset-4"
