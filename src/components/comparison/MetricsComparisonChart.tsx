@@ -29,7 +29,7 @@ export const MetricsComparisonChart = () => {
                 stroke="hsl(var(--muted-foreground))"
               />
               <ChartTooltip content={<ChartTooltipContent />} />
-              <Legend wrapperStyle={{ bottom: -40 }} />
+              <Legend wrapperStyle={{ bottom: 20 }} />
               <Bar
                 dataKey="pretrained"
                 name="Pretrained ResNet50"
