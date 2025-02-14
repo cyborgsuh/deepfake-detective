@@ -5,17 +5,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { loadModel, predictImage } from "@/utils/modelLoader";
 import { useToast } from "@/components/ui/use-toast";
-import { Loader2 } from "lucide-react";
+import { Loader2, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export const ModelViewer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [prediction, setPrediction] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   const handleLoadModel = async () => {
     setIsLoading(true);
+    setError(null);
     try {
       await loadModel();
       toast({
@@ -23,9 +26,11 @@ export const ModelViewer = () => {
         description: "ResNet50 model has been loaded successfully",
       });
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to load model";
+      setError(errorMessage);
       toast({
         title: "Error",
-        description: "Failed to load model. See console for details.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -37,7 +42,8 @@ export const ModelViewer = () => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
-      setPrediction(null); // Reset prediction when new file is selected
+      setPrediction(null);
+      setError(null);
     }
   };
 
@@ -52,6 +58,7 @@ export const ModelViewer = () => {
     }
 
     setIsLoading(true);
+    setError(null);
     const formData = new FormData();
     formData.append('file', selectedFile);
 
@@ -63,12 +70,13 @@ export const ModelViewer = () => {
         description: `Predicted class: ${result.prediction === "0" ? "Real" : "Fake"}`,
       });
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to make prediction";
+      setError(errorMessage);
       toast({
         title: "Error",
-        description: "Failed to make prediction. See console for details.",
+        description: errorMessage,
         variant: "destructive",
       });
-      console.error("Prediction error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -84,6 +92,14 @@ export const ModelViewer = () => {
           <p className="text-muted-foreground">
             Model architecture: ResNet50 (not pre-trained)
           </p>
+
+          {error && (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
           <div className="flex flex-col gap-4">
             <Button 
               onClick={handleLoadModel} 
