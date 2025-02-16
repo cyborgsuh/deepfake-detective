@@ -3,7 +3,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 import { metricsData } from "@/data/modelComparisonData";
 export const MetricsComparisonChart = () => {
-  return <Card className="backdrop-blur-sm bg-card/50 border-primary/20">
+  return <Card className="backdrop-blur-sm bg-card/50 border-primary/20 py-[50px]">
       <CardHeader>
         <CardTitle>Performance Metrics Comparison</CardTitle>
       </CardHeader>
