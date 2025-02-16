@@ -1,6 +1,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Linkedin, Github } from "lucide-react";
+import { Mail, Linkedin, Github, Globe } from "lucide-react";
 
 const Contact = () => {
   return (
@@ -30,8 +30,23 @@ const Contact = () => {
             <CardContent>
               <div className="space-y-6">
                 <a 
+                  href="https://mohammed-suhaib-1.netlify.app/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group transform hover:scale-105 duration-200"
+                >
+                  <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <Globe className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-medium">Portfolio Website</h3>
+                    <p className="text-muted-foreground">Visit my portfolio</p>
+                  </div>
+                </a>
+
+                <a 
                   href="mailto:mosuh64@gmail.com" 
-                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group"
+                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group transform hover:scale-105 duration-200"
                 >
                   <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
                     <Mail className="h-6 w-6 text-primary" />
@@ -46,7 +61,7 @@ const Contact = () => {
                   href="https://www.linkedin.com/in/mosuh64/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group"
+                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group transform hover:scale-105 duration-200"
                 >
                   <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
                     <Linkedin className="h-6 w-6 text-primary" />
@@ -61,7 +76,7 @@ const Contact = () => {
                   href="https://github.com/cyborgsuh" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group"
+                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group transform hover:scale-105 duration-200"
                 >
                   <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
                     <Github className="h-6 w-6 text-primary" />
