@@ -1,8 +1,6 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Mail, Linkedin, Twitter } from "lucide-react";
+import { Mail, Linkedin, Github } from "lucide-react";
 
 const Contact = () => {
   return (
@@ -15,55 +13,63 @@ const Contact = () => {
 
       {/* Content */}
       <div className="container py-8 relative z-10 animate-fade-in">
-        <div className="space-y-4">
+        <div className="space-y-4 text-center">
           <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-            Contact Us
+            Let's Connect
           </h1>
-          <p className="text-muted-foreground text-lg max-w-3xl">
-            Get in touch for inquiries, collaborations, or feedback
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+            Feel free to reach out for collaborations or just to say hello!
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 mt-8">
+        <div className="mt-12 max-w-xl mx-auto">
           <Card className="backdrop-blur-sm bg-card/50 border-primary/20 hover:border-primary/40 transition-colors">
             <CardHeader>
-              <CardTitle>Send a Message</CardTitle>
+              <CardTitle className="text-center">Connect With Me</CardTitle>
             </CardHeader>
             <CardContent>
-              <form className="space-y-4">
-                <div>
-                  <Input placeholder="Your Name" className="bg-background/50" />
-                </div>
-                <div>
-                  <Input type="email" placeholder="Your Email" className="bg-background/50" />
-                </div>
-                <div>
-                  <Textarea placeholder="Your Message" className="bg-background/50" rows={4} />
-                </div>
-                <Button className="w-full bg-primary/10 hover:bg-primary/20">
-                  Send Message
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+              <div className="space-y-6">
+                <a 
+                  href="mailto:mosuh64@gmail.com" 
+                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group"
+                >
+                  <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <Mail className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-medium">Email</h3>
+                    <p className="text-muted-foreground">mosuh64@gmail.com</p>
+                  </div>
+                </a>
 
-          <Card className="backdrop-blur-sm bg-card/50 border-primary/20 hover:border-primary/40 transition-colors">
-            <CardHeader>
-              <CardTitle>Connect With Us</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <a href="mailto:contact@example.com" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                  <Mail className="h-5 w-5" />
-                  contact@example.com
+                <a 
+                  href="https://www.linkedin.com/in/mosuh64/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group"
+                >
+                  <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <Linkedin className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-medium">LinkedIn</h3>
+                    <p className="text-muted-foreground">Connect with me professionally</p>
+                  </div>
                 </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                  <Linkedin className="h-5 w-5" />
-                  LinkedIn Profile
-                </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                  <Twitter className="h-5 w-5" />
-                  Twitter Profile
+
+                <a 
+                  href="https://github.com/cyborgsuh" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group"
+                >
+                  <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <Github className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-medium">GitHub</h3>
+                    <p className="text-muted-foreground">Check out my projects</p>
+                  </div>
                 </a>
               </div>
             </CardContent>
