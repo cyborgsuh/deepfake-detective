@@ -3,7 +3,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 import { trainingData } from "@/data/modelComparisonData";
 export const TrainingProgressChart = () => {
-  return <Card className="backdrop-blur-sm bg-card/50 border-primary/20">
+  return <Card className="backdrop-blur-sm bg-card/50 border-primary/20 py-[43px]">
       <CardHeader>
         <CardTitle>Training Progress</CardTitle>
       </CardHeader>
