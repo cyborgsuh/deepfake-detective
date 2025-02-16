@@ -65,11 +65,11 @@ const Contact = () => {
                     <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors group-hover:rotate-12 duration-300">
                       <item.icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:scale-110 transition-transform" />
                     </div>
-                    <div className="flex-1 transition-all duration-300 group-hover:translate-x-1">
-                      <h3 className="font-medium text-base sm:text-lg group-hover:text-primary transition-colors">
+                    <div className="flex-1 transition-all duration-300">
+                      <h3 className="font-medium text-base sm:text-lg text-foreground/80 group-hover:text-primary transition-all duration-300 transform group-hover:translate-x-2">
                         {item.title}
                       </h3>
-                      <p className="text-sm sm:text-base text-muted-foreground group-hover:text-muted-foreground/80">
+                      <p className="text-sm sm:text-base text-muted-foreground group-hover:text-foreground/90 transition-all duration-300 transform group-hover:translate-x-2">
                         {item.description}
                       </p>
                     </div>
