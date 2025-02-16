@@ -4,7 +4,7 @@ import { Mail, Linkedin, Github, Globe } from "lucide-react";
 
 const Contact = () => {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
+    <div className="relative min-h-screen w-full overflow-hidden px-4 sm:px-6">
       {/* Dynamic Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-accent opacity-50" />
       <div className="absolute inset-0" style={{
@@ -12,88 +12,77 @@ const Contact = () => {
       }} />
 
       {/* Content */}
-      <div className="container py-8 relative z-10 animate-fade-in">
-        <div className="space-y-4 text-center">
-          <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+      <div className="container max-w-4xl mx-auto py-8 relative z-10">
+        <div className="space-y-4 text-center mb-12">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent animate-fade-in">
             Let's Connect
           </h1>
-          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Feel free to reach out for collaborations or just to say hello!
           </p>
         </div>
 
-        <div className="mt-12 max-w-xl mx-auto">
-          <Card className="backdrop-blur-sm bg-card/50 border-primary/20 hover:border-primary/40 transition-colors">
+        <div className="w-full max-w-xl mx-auto px-4">
+          <Card className="backdrop-blur-sm bg-card/50 border-primary/20 hover:border-primary/40 transition-all duration-300 shadow-lg hover:shadow-primary/20">
             <CardHeader>
-              <CardTitle className="text-center">Connect With Me</CardTitle>
+              <CardTitle className="text-center text-xl md:text-2xl">Connect With Me</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
-                <a 
-                  href="https://mohammed-suhaib-1.netlify.app/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group transform hover:scale-105 duration-200"
-                >
-                  <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                    <Globe className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-medium">Portfolio Website</h3>
-                    <p className="text-muted-foreground">Visit my portfolio</p>
-                  </div>
-                </a>
-
-                <a 
-                  href="mailto:mosuh64@gmail.com" 
-                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group transform hover:scale-105 duration-200"
-                >
-                  <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                    <Mail className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-medium">Email</h3>
-                    <p className="text-muted-foreground">mosuh64@gmail.com</p>
-                  </div>
-                </a>
-
-                <a 
-                  href="https://www.linkedin.com/in/mosuh64/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group transform hover:scale-105 duration-200"
-                >
-                  <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                    <Linkedin className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-medium">LinkedIn</h3>
-                    <p className="text-muted-foreground">Connect with me professionally</p>
-                  </div>
-                </a>
-
-                <a 
-                  href="https://github.com/cyborgsuh" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors group transform hover:scale-105 duration-200"
-                >
-                  <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                    <Github className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-medium">GitHub</h3>
-                    <p className="text-muted-foreground">Check out my projects</p>
-                  </div>
-                </a>
+              <div className="space-y-4">
+                {[
+                  {
+                    href: "https://mohammed-suhaib-1.netlify.app/",
+                    icon: Globe,
+                    title: "Portfolio Website",
+                    description: "Visit my portfolio",
+                  },
+                  {
+                    href: "mailto:mosuh64@gmail.com",
+                    icon: Mail,
+                    title: "Email",
+                    description: "mosuh64@gmail.com",
+                  },
+                  {
+                    href: "https://www.linkedin.com/in/mosuh64/",
+                    icon: Linkedin,
+                    title: "LinkedIn",
+                    description: "Connect with me professionally",
+                  },
+                  {
+                    href: "https://github.com/cyborgsuh",
+                    icon: Github,
+                    title: "GitHub",
+                    description: "Check out my projects",
+                  },
+                ].map((item, index) => (
+                  <a
+                    key={index}
+                    href={item.href}
+                    target={item.href.startsWith('http') ? "_blank" : undefined}
+                    rel={item.href.startsWith('http') ? "noopener noreferrer" : undefined}
+                    className="group flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-all duration-300 transform hover:translate-x-1 hover:scale-[1.02] hover:shadow-lg will-change-transform"
+                  >
+                    <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors group-hover:rotate-12 duration-300">
+                      <item.icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:scale-110 transition-transform" />
+                    </div>
+                    <div className="flex-1 transition-all duration-300 group-hover:translate-x-1">
+                      <h3 className="font-medium text-base sm:text-lg group-hover:text-primary transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm sm:text-base text-muted-foreground group-hover:text-muted-foreground/80">
+                        {item.description}
+                      </p>
+                    </div>
+                  </a>
+                ))}
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Floating Elements */}
-        <div className="absolute top-20 right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse" />
+        {/* Floating Elements - Made more responsive */}
+        <div className="absolute top-[10%] right-[5%] w-48 h-48 md:w-64 md:h-64 bg-primary/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-[10%] left-[5%] w-72 h-72 md:w-96 md:h-96 bg-accent/5 rounded-full blur-3xl animate-pulse" />
       </div>
     </div>
   );
