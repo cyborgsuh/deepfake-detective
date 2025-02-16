@@ -15,7 +15,7 @@ app = FastAPI()
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Replace with your frontend URL
+    allow_origins=["http://localhost:8080"],  # Replace with your frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -50,7 +50,7 @@ async def predict(file: UploadFile = File(...)):
         
         # Define image transformations
         transform = transforms.Compose([
-            transforms.Resize((224, 224)),  # ResNet expects 224x224 images
+            transforms.Resize((256, 256)),  # ResNet expects 224x224 images
             transforms.ToTensor(),
             transforms.Normalize(
                 mean=[0.485, 0.456, 0.406],
@@ -78,4 +78,4 @@ async def predict(file: UploadFile = File(...)):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host="127.0.0.0", port=5000)
