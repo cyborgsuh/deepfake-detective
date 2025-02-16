@@ -1,4 +1,3 @@
-
 import { useState, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -67,7 +66,7 @@ export const ModelViewer = () => {
       setPrediction(result.prediction);
       toast({
         title: "Prediction Complete",
-        description: `Predicted class: ${result.prediction === "0" ? "Real" : "Fake"}`,
+        description: `Predicted class: ${result.prediction === "0" ? "Fake" : "Real"}`,
       });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Failed to make prediction";
@@ -142,9 +141,12 @@ export const ModelViewer = () => {
             </Button>
 
             {prediction && (
-              <div className="mt-4 p-4 bg-secondary rounded-lg">
+              <div className="mt-4 p-4 bg-secondary rounded-lg space-y-2">
                 <p className="font-medium">
-                  Prediction: {prediction === "0" ? "Real" : "Fake"} Image
+                  Prediction: {prediction === "0" ? "Fake" : "Real"} Image
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Confidence: {Math.round(prediction.confidence * 100)}%
                 </p>
               </div>
             )}
