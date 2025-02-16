@@ -1,3 +1,4 @@
+
 import { useState, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,9 +8,14 @@ import { useToast } from "@/components/ui/use-toast";
 import { Loader2, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
+interface PredictionResult {
+  prediction: string;
+  confidence: number;
+}
+
 export const ModelViewer = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [prediction, setPrediction] = useState<string | null>(null);
+  const [prediction, setPrediction] = useState<PredictionResult | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -63,7 +69,7 @@ export const ModelViewer = () => {
 
     try {
       const result = await predictImage(formData);
-      setPrediction(result.prediction);
+      setPrediction(result);
       toast({
         title: "Prediction Complete",
         description: `Predicted class: ${result.prediction === "0" ? "Fake" : "Real"}`,
@@ -143,7 +149,7 @@ export const ModelViewer = () => {
             {prediction && (
               <div className="mt-4 p-4 bg-secondary rounded-lg space-y-2">
                 <p className="font-medium">
-                  Prediction: {prediction === "0" ? "Fake" : "Real"} Image
+                  Prediction: {prediction.prediction === "0" ? "Fake" : "Real"} Image
                 </p>
                 <p className="text-sm text-muted-foreground">
                   Confidence: {Math.round(prediction.confidence * 100)}%
