@@ -7,10 +7,10 @@ import { trainingData } from "@/data/modelComparisonData";
 export const TrainingProgressChart = () => {
   return (
     <Card className="backdrop-blur-sm bg-card/50 border-primary/20">
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle>Training Progress</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-6">
         <div className="h-[400px] w-full">
           <ChartContainer config={{
             resnet50: {
@@ -22,10 +22,10 @@ export const TrainingProgressChart = () => {
           }}>
             <ResponsiveContainer width="100%" height={400}>
               <LineChart data={trainingData} margin={{
-                top: 20,
+                top: 5,
                 right: 30,
                 left: 20,
-                bottom: 5
+                bottom: 35
               }}>
                 <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                 <XAxis 
