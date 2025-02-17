@@ -7,10 +7,10 @@ import { metricsData } from "@/data/modelComparisonData";
 export const MetricsComparisonChart = () => {
   return (
     <Card className="backdrop-blur-sm bg-card/50 border-primary/20">
-      <CardHeader className="pb-2">
+      <CardHeader className="pb-4">
         <CardTitle>Performance Metrics Comparison</CardTitle>
       </CardHeader>
-      <CardContent className="pt-6">
+      <CardContent className="py-4">
         <div className="h-[400px] w-full">
           <ChartContainer config={{
             resnet50: {
@@ -22,10 +22,10 @@ export const MetricsComparisonChart = () => {
           }}>
             <ResponsiveContainer width="100%" height={400}>
               <BarChart data={metricsData} margin={{
-                top: 5,
+                top: 20,
                 right: 30,
                 left: 20,
-                bottom: 35
+                bottom: 20
               }}>
                 <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                 <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
