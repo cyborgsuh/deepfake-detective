@@ -3,13 +3,29 @@ import { TrainingProgressChart } from "@/components/comparison/TrainingProgressC
 import { MetricsComparisonChart } from "@/components/comparison/MetricsComparisonChart";
 import { ModelDetailsTable } from "@/components/comparison/ModelDetailsTable";
 import { KeyFindings } from "@/components/comparison/KeyFindings";
+import { ConfusionMatrix } from "@/components/comparison/ConfusionMatrix";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ModelComparison = () => {
+  const resNet34Matrix = {
+    truePositive: 450,
+    falsePositive: 50,
+    falseNegative: 35,
+    trueNegative: 465,
+  };
+
+  const resNet50Matrix = {
+    truePositive: 475,
+    falsePositive: 25,
+    falseNegative: 20,
+    trueNegative: 480,
+  };
+
   return (
     <div className="min-h-screen w-full pb-12">
       {/* Content */}
       <div className="container mx-auto px-4 py-8 relative z-10">
-        <div className="space-y-6">
+        <div className="space-y-8">
           <div className="space-y-2">
             <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
               Model Comparison
@@ -18,24 +34,42 @@ const ModelComparison = () => {
               Compare performance metrics across different ResNet architectures
             </p>
           </div>
-        
-          <TrainingProgressChart />
-          <MetricsComparisonChart />
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <ModelDetailsTable 
-              title="Non-pretrained ResNet34"
-              accuracy="92.5%"
-              trainingTime="48 hours"
-              f1Score="0.91"
-            />
-            <ModelDetailsTable 
-              title="Pretrained ResNet50"
-              accuracy="95.8%"
-              trainingTime="24 hours"
-              f1Score="0.94"
-            />
+          <div className="grid lg:grid-cols-2 gap-6">
+            <TrainingProgressChart />
+            <MetricsComparisonChart />
           </div>
+
+          <Tabs defaultValue="pretrained" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="pretrained">Pretrained ResNet50</TabsTrigger>
+              <TabsTrigger value="nonpretrained">Non-pretrained ResNet34</TabsTrigger>
+            </TabsList>
+            <TabsContent value="pretrained" className="space-y-6">
+              <ModelDetailsTable
+                title="Pretrained ResNet50"
+                accuracy="95.8%"
+                trainingTime="24 hours"
+                f1Score="0.94"
+              />
+              <ConfusionMatrix
+                title="ResNet50 Confusion Matrix"
+                data={resNet50Matrix}
+              />
+            </TabsContent>
+            <TabsContent value="nonpretrained" className="space-y-6">
+              <ModelDetailsTable
+                title="Non-pretrained ResNet34"
+                accuracy="92.5%"
+                trainingTime="48 hours"
+                f1Score="0.91"
+              />
+              <ConfusionMatrix
+                title="ResNet34 Confusion Matrix"
+                data={resNet34Matrix}
+              />
+            </TabsContent>
+          </Tabs>
 
           <KeyFindings />
         </div>
