@@ -5,6 +5,7 @@ import { ModelDetailsTable } from "@/components/comparison/ModelDetailsTable";
 import { KeyFindings } from "@/components/comparison/KeyFindings";
 import { ConfusionMatrix } from "@/components/comparison/ConfusionMatrix";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
 
 const ModelComparison = () => {
   const resNet34Matrix = {
@@ -23,54 +24,67 @@ const ModelComparison = () => {
 
   return (
     <div className="min-h-screen w-full pb-12">
-      {/* Content */}
-      <div className="container mx-auto px-4 py-8 relative z-10">
-        <div className="space-y-8">
-          <div className="space-y-2">
-            <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-              Model Comparison
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              Compare performance metrics across different ResNet architectures
-            </p>
-          </div>
+      <div className="container mx-auto px-4 py-8 space-y-8">
+        {/* Header Section */}
+        <div className="space-y-2">
+          <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+            Model Comparison
+          </h1>
+          <p className="text-muted-foreground text-lg">
+            Compare performance metrics across different ResNet architectures
+          </p>
+          <Separator className="mt-4" />
+        </div>
 
+        {/* Main Content */}
+        <div className="grid gap-8">
+          {/* Charts Section */}
           <div className="grid lg:grid-cols-2 gap-6">
             <TrainingProgressChart />
             <MetricsComparisonChart />
           </div>
 
+          {/* Model Details Section */}
           <Tabs defaultValue="resnet50" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="resnet50">ResNet 50</TabsTrigger>
               <TabsTrigger value="resnet34">ResNet 34</TabsTrigger>
             </TabsList>
+            
             <TabsContent value="resnet50" className="space-y-6">
-              <ModelDetailsTable
-                title="ResNet 50"
-                accuracy="95.8%"
-                trainingTime="24 hours"
-                f1Score="0.94"
-              />
-              <ConfusionMatrix
-                title="ResNet 50 Confusion Matrix"
-                data={resNet50Matrix}
-              />
+              <div className="grid lg:grid-cols-2 gap-6">
+                <ModelDetailsTable
+                  title="ResNet 50"
+                  accuracy="95.8%"
+                  trainingTime="24 hours"
+                  f1Score="0.94"
+                />
+                <ConfusionMatrix
+                  title="ResNet 50 Confusion Matrix"
+                  data={resNet50Matrix}
+                />
+              </div>
             </TabsContent>
+            
             <TabsContent value="resnet34" className="space-y-6">
-              <ModelDetailsTable
-                title="ResNet 34"
-                accuracy="92.5%"
-                trainingTime="48 hours"
-                f1Score="0.91"
-              />
-              <ConfusionMatrix
-                title="ResNet 34 Confusion Matrix"
-                data={resNet34Matrix}
-              />
+              <div className="grid lg:grid-cols-2 gap-6">
+                <ModelDetailsTable
+                  title="ResNet 34"
+                  accuracy="92.5%"
+                  trainingTime="48 hours"
+                  f1Score="0.91"
+                />
+                <ConfusionMatrix
+                  title="ResNet 34 Confusion Matrix"
+                  data={resNet34Matrix}
+                />
+              </div>
             </TabsContent>
           </Tabs>
 
+          <Separator />
+          
+          {/* Key Findings Section */}
           <KeyFindings />
         </div>
       </div>

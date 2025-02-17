@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
-import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, ResponsiveContainer, Legend } from 'recharts';
+import { ChartContainer } from "@/components/ui/chart";
+import { ResponsiveContainer } from 'recharts';
 
 interface ConfusionMatrixProps {
   title: string;
@@ -17,26 +17,9 @@ export const ConfusionMatrix = ({ title, data }: ConfusionMatrixProps) => {
   const total = data.truePositive + data.falsePositive + data.falseNegative + data.trueNegative;
   
   const formatPercentage = (value: number) => `${((value / total) * 100).toFixed(1)}%`;
-
-  const matrixData = [
-    { x: 0, y: 0, value: data.truePositive, label: "True Positive", category: "Correct" },
-    { x: 1, y: 0, value: data.falseNegative, label: "False Negative", category: "Error" },
-    { x: 0, y: 1, value: data.falsePositive, label: "False Positive", category: "Error" },
-    { x: 1, y: 1, value: data.trueNegative, label: "True Negative", category: "Correct" }
-  ];
-
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      return (
-        <div className="rounded-lg border border-border/50 bg-background px-3 py-2 text-sm shadow-xl">
-          <p className="font-medium">{data.label}</p>
-          <p className="text-muted-foreground">Count: {data.value}</p>
-          <p className="text-muted-foreground">Percentage: {formatPercentage(data.value)}</p>
-        </div>
-      );
-    }
-    return null;
+  const getColor = (value: number) => {
+    const percentage = (value / total) * 100;
+    return `hsl(var(--primary) / ${percentage}%)`;
   };
 
   return (
@@ -45,58 +28,72 @@ export const ConfusionMatrix = ({ title, data }: ConfusionMatrixProps) => {
         <CardTitle className="text-lg md:text-xl">{title}</CardTitle>
       </CardHeader>
       <CardContent className="py-4">
-        <div className="h-[400px] w-full">
-          <ChartContainer config={{
-            Correct: {
-              color: "hsl(var(--primary))"
-            },
-            Error: {
-              color: "hsl(var(--destructive))"
-            }
-          }}>
-            <ResponsiveContainer width="100%" height={400}>
-              <ScatterChart
-                margin={{
-                  top: 20,
-                  right: 30,
-                  left: 20,
-                  bottom: 20
-                }}
+        <div className="h-[400px] w-full flex items-center justify-center">
+          <div className="grid grid-cols-2 gap-1 w-full max-w-md aspect-square">
+            {/* Column Labels */}
+            <div className="col-span-2 grid grid-cols-2 mb-1">
+              <div className="text-center text-sm font-medium">Predicted Positive</div>
+              <div className="text-center text-sm font-medium">Predicted Negative</div>
+            </div>
+            
+            {/* Row Label + True Positive */}
+            <div className="grid grid-cols-[auto,1fr] items-center">
+              <div className="rotate-180 text-sm font-medium [writing-mode:vertical-lr] pr-2">
+                Actual Positive
+              </div>
+              <div 
+                className="aspect-square flex items-center justify-center p-2 rounded-lg transition-colors"
+                style={{ backgroundColor: getColor(data.truePositive) }}
               >
-                <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                <XAxis 
-                  type="number" 
-                  dataKey="x" 
-                  domain={[-0.5, 1.5]}
-                  tickCount={2}
-                  tick={{ transform: 'translate(0, 8)' }}
-                  ticks={[0, 1]}
-                  tickFormatter={(value) => value === 0 ? "Predicted Positive" : "Predicted Negative"}
-                />
-                <YAxis 
-                  type="number" 
-                  dataKey="y" 
-                  domain={[-0.5, 1.5]}
-                  tickCount={2}
-                  ticks={[0, 1]}
-                  tickFormatter={(value) => value === 0 ? "Actual Positive" : "Actual Negative"}
-                />
-                <ZAxis type="number" dataKey="value" range={[800, 2000]} />
-                <ChartTooltip content={<CustomTooltip />} />
-                <Legend />
-                <Scatter 
-                  data={matrixData.filter(d => d.category === "Correct")}
-                  name="Correct"
-                  fill="hsl(var(--primary))"
-                />
-                <Scatter 
-                  data={matrixData.filter(d => d.category === "Error")}
-                  name="Error"
-                  fill="hsl(var(--destructive))"
-                />
-              </ScatterChart>
-            </ResponsiveContainer>
-          </ChartContainer>
+                <div className="text-center">
+                  <div className="font-bold">{data.truePositive}</div>
+                  <div className="text-xs opacity-75">{formatPercentage(data.truePositive)}</div>
+                  <div className="text-xs mt-1">True Positive</div>
+                </div>
+              </div>
+            </div>
+            
+            {/* False Negative */}
+            <div 
+              className="aspect-square flex items-center justify-center p-2 rounded-lg transition-colors"
+              style={{ backgroundColor: getColor(data.falseNegative) }}
+            >
+              <div className="text-center">
+                <div className="font-bold">{data.falseNegative}</div>
+                <div className="text-xs opacity-75">{formatPercentage(data.falseNegative)}</div>
+                <div className="text-xs mt-1">False Negative</div>
+              </div>
+            </div>
+            
+            {/* Row Label + False Positive */}
+            <div className="grid grid-cols-[auto,1fr] items-center">
+              <div className="rotate-180 text-sm font-medium [writing-mode:vertical-lr] pr-2">
+                Actual Negative
+              </div>
+              <div 
+                className="aspect-square flex items-center justify-center p-2 rounded-lg transition-colors"
+                style={{ backgroundColor: getColor(data.falsePositive) }}
+              >
+                <div className="text-center">
+                  <div className="font-bold">{data.falsePositive}</div>
+                  <div className="text-xs opacity-75">{formatPercentage(data.falsePositive)}</div>
+                  <div className="text-xs mt-1">False Positive</div>
+                </div>
+              </div>
+            </div>
+            
+            {/* True Negative */}
+            <div 
+              className="aspect-square flex items-center justify-center p-2 rounded-lg transition-colors"
+              style={{ backgroundColor: getColor(data.trueNegative) }}
+            >
+              <div className="text-center">
+                <div className="font-bold">{data.trueNegative}</div>
+                <div className="text-xs opacity-75">{formatPercentage(data.trueNegative)}</div>
+                <div className="text-xs mt-1">True Negative</div>
+              </div>
+            </div>
+          </div>
         </div>
       </CardContent>
     </Card>
