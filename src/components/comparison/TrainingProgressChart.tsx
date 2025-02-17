@@ -13,10 +13,10 @@ export const TrainingProgressChart = () => {
       <CardContent>
         <div className="h-[400px] w-full">
           <ChartContainer config={{
-            pretrained: {
+            resnet50: {
               color: "hsl(var(--primary))"
             },
-            nonPretrained: {
+            resnet34: {
               color: "hsl(var(--destructive))"
             }
           }}>
@@ -48,16 +48,16 @@ export const TrainingProgressChart = () => {
                 />
                 <Line 
                   type="monotone" 
-                  dataKey="pretrained" 
-                  name="Pretrained ResNet50" 
+                  dataKey="resnet50" 
+                  name="ResNet 50" 
                   stroke="hsl(var(--primary))" 
                   strokeWidth={2} 
                   dot={false}
                 />
                 <Line 
                   type="monotone" 
-                  dataKey="nonPretrained" 
-                  name="Non-pretrained ResNet34" 
+                  dataKey="resnet34" 
+                  name="ResNet 34" 
                   stroke="hsl(var(--destructive))" 
                   strokeWidth={2} 
                   dot={false}

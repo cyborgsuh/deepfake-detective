@@ -40,32 +40,32 @@ const ModelComparison = () => {
             <MetricsComparisonChart />
           </div>
 
-          <Tabs defaultValue="pretrained" className="w-full">
+          <Tabs defaultValue="resnet50" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="pretrained">Pretrained ResNet50</TabsTrigger>
-              <TabsTrigger value="nonpretrained">Non-pretrained ResNet34</TabsTrigger>
+              <TabsTrigger value="resnet50">ResNet 50</TabsTrigger>
+              <TabsTrigger value="resnet34">ResNet 34</TabsTrigger>
             </TabsList>
-            <TabsContent value="pretrained" className="space-y-6">
+            <TabsContent value="resnet50" className="space-y-6">
               <ModelDetailsTable
-                title="Pretrained ResNet50"
+                title="ResNet 50"
                 accuracy="95.8%"
                 trainingTime="24 hours"
                 f1Score="0.94"
               />
               <ConfusionMatrix
-                title="ResNet50 Confusion Matrix"
+                title="ResNet 50 Confusion Matrix"
                 data={resNet50Matrix}
               />
             </TabsContent>
-            <TabsContent value="nonpretrained" className="space-y-6">
+            <TabsContent value="resnet34" className="space-y-6">
               <ModelDetailsTable
-                title="Non-pretrained ResNet34"
+                title="ResNet 34"
                 accuracy="92.5%"
                 trainingTime="48 hours"
                 f1Score="0.91"
               />
               <ConfusionMatrix
-                title="ResNet34 Confusion Matrix"
+                title="ResNet 34 Confusion Matrix"
                 data={resNet34Matrix}
               />
             </TabsContent>
