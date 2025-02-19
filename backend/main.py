@@ -29,7 +29,8 @@ async def load_model():
     global model
     try:
         # Initialize the model with the correct architecture
-        model = ResNet(img_channels=3, num_layers=50, block=BasicBlock, num_classes=2)
+        device=torch.device("cpu") 
+        model = ResNet(img_channels=3, num_layers=50, block=BasicBlock, num_classes=2).to(device)
         # Load the pre-trained weights
         model.load_state_dict(torch.load("not-pretrained-1 ResNet 50.pth"), map_location=torch.device('cpu'))
         model.eval()  # Set to evaluation mode
