@@ -76,6 +76,4 @@ async def predict(file: UploadFile = File(...)):
         print(f"Error during prediction: {str(e)}")  # Add server-side logging
         return {"error": str(e)}
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.0", port=5000)
+
