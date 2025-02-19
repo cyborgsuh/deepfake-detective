@@ -1,18 +1,7 @@
 import torch
 import torch.nn as nn
-import torch.optim as optim
 from torch import Tensor
-from torchvision import datasets, transforms
-from torch.utils.data import DataLoader,random_split
 from typing import Type
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score,roc_auc_score, roc_curve,classification_report,precision_recall_curve
-from sklearn.metrics import confusion_matrix
-import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
-import pandas as pd
-import time  
-
 
 
 class BasicBlock(nn.Module):
