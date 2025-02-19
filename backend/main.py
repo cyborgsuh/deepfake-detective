@@ -31,7 +31,7 @@ async def load_model():
         # Initialize the model with the correct architecture
         model = ResNet(img_channels=3, num_layers=50, block=BasicBlock, num_classes=2)
         # Load the pre-trained weights
-        model.load_state_dict(torch.load("not-pretrained-1 ResNet 50.pth", map_location=torch.device('cpu')))
+        model.load_state_dict(torch.load("not-pretrained-1 ResNet 50.pth"))
         model.eval()  # Set to evaluation mode
         return {"message": "Model loaded successfully"}
     except Exception as e:
