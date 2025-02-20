@@ -15,7 +15,7 @@ app = FastAPI()
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://deepfake-detection-app.netlify.app/demo"],  # Replace with your frontend URL
+    allow_origins=["https://deepfake-detection-app.netlify.app"],  # Replace with your frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
