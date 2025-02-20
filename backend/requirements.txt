@@ -1,6 +1,5 @@
 numpy==1.19.2
-Pillow==10.1.0
-Pillow==11.1.0
+pillow==10.1.0
 torch==2.1.1
 torchvision==0.16.1
 fastapi==0.104.1
