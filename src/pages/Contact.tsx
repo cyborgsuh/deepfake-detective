@@ -1,88 +1,135 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Linkedin, Github, Globe } from "lucide-react";
+import { Mail, Linkedin, Github, Globe, ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+
+const contactLinks = [
+  {
+    href: "https://mohammed-suhaib-1.netlify.app/",
+    icon: Globe,
+    title: "Portfolio Website",
+    description: "Explore my projects and work experience",
+    color: "text-green-500",
+  },
+  {
+    href: "mailto:mosuh64@gmail.com",
+    icon: Mail,
+    title: "Email",
+    description: "Get in touch via email",
+    color: "text-green-500",
+  },
+  {
+    href: "https://www.linkedin.com/in/mosuh64/",
+    icon: Linkedin,
+    title: "LinkedIn",
+    description: "Connect professionally",
+    color: "text-green-500",
+  },
+  {
+    href: "https://github.com/cyborgsuh",
+    icon: Github,
+    title: "GitHub",
+    description: "Check out my code repositories",
+    color: "text-green-500 dark:text-gray-300",
+  },
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
 
 const Contact = () => {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden px-4 sm:px-6">
-      {/* Dynamic Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-accent opacity-50" />
-      <div className="absolute inset-0" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-      }} />
-
-      {/* Content */}
-      <div className="container max-w-4xl mx-auto py-8 relative z-10">
-        <div className="space-y-4 text-center mb-12">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent animate-fade-in">
-            Let's Connect
-          </h1>
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            Feel free to reach out for collaborations or just to say hello!
-          </p>
-        </div>
-
-        <div className="w-full max-w-xl mx-auto px-4">
-          <Card className="backdrop-blur-sm bg-card/50 border-primary/20 hover:border-primary/40 transition-all duration-300 shadow-lg hover:shadow-primary/20">
-            <CardHeader>
-              <CardTitle className="text-center text-xl md:text-2xl">Connect With Me</CardTitle>
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b">
+      <div className="w-full max-w-4xl">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="space-y-8"
+        >
+          {/* Header Section */}
+          <Card className="backdrop-blur-md bg-card/90 border border-primary/20 shadow-lg">
+            <CardHeader className="text-center space-y-4">
+              <motion.div variants={itemVariants}>
+                <CardTitle className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                  Let's Connect
+                </CardTitle>
+              </motion.div>
+              <motion.p
+                variants={itemVariants}
+                className="text-lg text-muted-foreground max-w-2xl mx-auto"
+              >
+                I'm always open to new opportunities, collaborations, and interesting
+                conversations.
+              </motion.p>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {[
-                  {
-                    href: "https://mohammed-suhaib-1.netlify.app/",
-                    icon: Globe,
-                    title: "Portfolio Website",
-                    description: "Visit my portfolio",
-                  },
-                  {
-                    href: "mailto:mosuh64@gmail.com",
-                    icon: Mail,
-                    title: "Email",
-                    description: "mosuh64@gmail.com",
-                  },
-                  {
-                    href: "https://www.linkedin.com/in/mosuh64/",
-                    icon: Linkedin,
-                    title: "LinkedIn",
-                    description: "Connect with me professionally",
-                  },
-                  {
-                    href: "https://github.com/cyborgsuh",
-                    icon: Github,
-                    title: "GitHub",
-                    description: "Check out my projects",
-                  },
-                ].map((item, index) => (
-                  <a
-                    key={index}
-                    href={item.href}
-                    target={item.href.startsWith('http') ? "_blank" : undefined}
-                    rel={item.href.startsWith('http') ? "noopener noreferrer" : undefined}
-                    className="group flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-all duration-300 transform hover:translate-x-1 hover:scale-[1.02] hover:shadow-lg will-change-transform"
-                  >
-                    <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors group-hover:rotate-12 duration-300">
-                      <item.icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:scale-110 transition-transform" />
-                    </div>
-                    <div className="flex-1 transition-all duration-300">
-                      <h3 className="font-medium text-base sm:text-lg text-foreground/80 group-hover:text-primary transition-all duration-300 transform group-hover:translate-x-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm sm:text-base text-muted-foreground group-hover:text-foreground/90 transition-all duration-300 transform group-hover:translate-x-2">
-                        {item.description}
-                      </p>
-                    </div>
-                  </a>
-                ))}
-              </div>
+          </Card>
+
+          {/* Contact Links Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {contactLinks.map((link, index) => (
+              <motion.div key={index} variants={itemVariants}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+                >
+                  <Card className="h-full backdrop-blur-sm bg-card/80 border border-primary/20 
+                                 hover:border-primary/40 transition-all duration-300 
+                                 hover:shadow-lg hover:shadow-primary/5">
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-start space-x-4">
+                          <div className={`p-3 rounded-xl bg-primary/10 ${link.color}`}>
+                            <link.icon className="h-6 w-6" />
+                          </div>
+                          <div className="space-y-1">
+                            <h3 className="font-semibold text-lg flex items-center gap-2">
+                              {link.title}
+                              <ArrowUpRight className="h-4 w-4 opacity-0 -translate-y-1 
+                                                     group-hover:opacity-100 group-hover:translate-y-0 
+                                                     transition-all duration-300" />
+                            </h3>
+                            <p className="text-muted-foreground text-sm">
+                              {link.description}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </a>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Footer Card */}
+          <Card className="backdrop-blur-sm bg-card/80 border border-primary/20">
+            <CardContent className="p-6 text-center">
+              <motion.p
+                variants={itemVariants}
+                className="text-muted-foreground"
+              >
+                Based in Dubai, UAE • Available for remote opportunities
+              </motion.p>
             </CardContent>
           </Card>
-        </div>
-
-        {/* Floating Elements - Made more responsive */}
-        <div className="absolute top-[10%] right-[5%] w-48 h-48 md:w-64 md:h-64 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-[10%] left-[5%] w-72 h-72 md:w-96 md:h-96 bg-accent/5 rounded-full blur-3xl animate-pulse" />
+        </motion.div>
       </div>
     </div>
   );
