@@ -6,8 +6,16 @@ import {
   FileUp, Search, FileCheck, Scale, Workflow
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleDemoClick = () => {
+    window.scrollTo({top: 0, behavior: "smooth"});
+    navigate("/demo");
+  };
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* Dynamic Background */}
@@ -200,6 +208,7 @@ const Home = () => {
           </h3>
           <Link to="/demo">
             <Button 
+              onClick={handleDemoClick}
               size="lg" 
               className="gap-2 bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg transform transition-all hover:scale-105"
             >
