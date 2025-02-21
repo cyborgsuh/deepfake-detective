@@ -1,7 +1,7 @@
 import { Brain, Home, GitCompare, Database, Sliders, Play, Mail, Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { cn } from "@/lib/utils"; // Assuming you have this utility
+import { cn } from "@/lib/utils";
 
 const menuItems = [
   { title: "Home", icon: Home, path: "/" },
@@ -26,6 +26,12 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Scroll to top handler
+  const handleNavClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <nav
       className={cn(
@@ -40,6 +46,7 @@ export function Navbar() {
           {/* Logo */}
           <Link 
             to="/" 
+            onClick={handleNavClick}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
             <Brain className="h-7 w-7 text-primary" />
@@ -54,6 +61,7 @@ export function Navbar() {
               <Link
                 key={item.title}
                 to={item.path}
+                onClick={handleNavClick}
                 className={cn(
                   "flex items-center gap-2 px-4 py-2 text-sm rounded-md transition-all duration-200",
                   "hover:bg-accent hover:text-accent-foreground",
@@ -90,7 +98,7 @@ export function Navbar() {
               <Link
                 key={item.title}
                 to={item.path}
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={handleNavClick}
                 className={cn(
                   "flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200",
                   "hover:bg-accent hover:text-accent-foreground",
