@@ -41,15 +41,15 @@ const Hyperparameters = () => {
                   </TableRow>
                   <TableRow>
                     <TableCell>Learning Rate</TableCell>
-                    <TableCell>0.0001</TableCell>
+                    <TableCell>0.001</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Batch Size</TableCell>
-                    <TableCell>32</TableCell>
+                    <TableCell>64</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Epochs</TableCell>
-                    <TableCell>100</TableCell>
+                    <TableCell>10</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -71,11 +71,11 @@ const Hyperparameters = () => {
                 <TableBody>
                   <TableRow>
                     <TableCell>Weight Decay</TableCell>
-                    <TableCell>0.01</TableCell>
+                    <TableCell>1e-4</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Dropout Rate</TableCell>
-                    <TableCell>0.3</TableCell>
+                    <TableCell>Label Smoothing</TableCell>
+                    <TableCell>0.1</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Early Stopping Patience</TableCell>
@@ -93,13 +93,15 @@ const Hyperparameters = () => {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground mb-4">
-              Hyperparameters were selected through a combination of:
+            Hyperparameters and training strategies were refined through iterative experimentation to achieve optimal model performance and generalization
             </p>
             <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-              <li>Grid search for learning rate and batch size</li>
-              <li>Cross-validation to prevent overfitting</li>
-              <li>Manual fine-tuning based on validation performance</li>
-              <li>Industry best practices for similar architectures</li>
+              <li>Empirical tuning based on validation performance to optimize learning rate, batch size, and weight decay</li>
+              <li>Manual experimentation with different ResNet architectures (ResNet34 vs. ResNet50) to enhance model performance, especially recall</li>
+              <li>Data augmentation techniques such as Random Rotation, Horizontal Flip, and ColorJitter to improve model robustness against variations</li>
+              <li>Incorporation of label smoothing (0.1) to prevent overconfidence in predictions and improve generalization</li>
+              <li>Weight decay (1e-4) in AdamW optimizer to mitigate overfitting</li>
+              <li>Tracking validation loss and accuracy, with the best-performing model saved automatically</li>
             </ul>
           </CardContent>
         </Card>

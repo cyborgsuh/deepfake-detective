@@ -38,11 +38,7 @@ const DataAugmentation = () => {
                   <TableRow>
                     <TableCell>ColorJitter</TableCell>
                     <TableCell>Adjusts brightness, contrast, and saturation</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Random Flip</TableCell>
-                    <TableCell>Horizontal image flipping</TableCell>
-                  </TableRow>
+                  </TableRow>   
                   <TableRow>
                     <TableCell>Random Rotation</TableCell>
                     <TableCell>Slight rotation variations</TableCell>

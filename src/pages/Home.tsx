@@ -1,6 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Brain, Shield, Zap } from "lucide-react";
+import { 
+  ArrowRight, Brain, Shield, Zap, Upload, 
+  Cpu, CheckCircle, Gauge, Clock, Lock,
+  FileUp, Search, FileCheck, Scale, Workflow
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -34,7 +38,7 @@ const Home = () => {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                Our system leverages state-of-the-art ResNet models and deep learning techniques to accurately detect manipulated media content. Through extensive training and optimization, we've developed a robust solution for identifying deepfakes.
+              Our system utilizes cutting-edge ResNet models and deep learning techniques to accurately detect manipulated media. With extensive training and optimization, we've developed a powerful solution to identify deepfakes with high accuracy and reliability.
               </p>
             </CardContent>
           </Card>
@@ -49,7 +53,7 @@ const Home = () => {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                In an era where digital manipulation becomes increasingly sophisticated, our technology helps maintain trust in digital media across various sectors including journalism, politics, and social media platforms.
+              As deepfake technology becomes more advanced, detecting manipulated content is crucial for maintaining trust in digital media. Our AI-driven solution helps journalists, policymakers, and social media platforms fight misinformation by identifying fake content in real-time.
               </p>
             </CardContent>
           </Card>
@@ -61,29 +65,152 @@ const Home = () => {
               <Zap className="h-6 w-6 text-primary" />
               Technology Stack
             </CardTitle>
+            <CardDescription>Built for Performance and Accuracy</CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-              <li>FastAPI for robust and high-performance API endpoints</li>
+              <li>FastAPI for high-performance and scalable API endpoints</li>
               <li>ResNet architecture optimized for image analysis</li>
               <li>Python-based deep learning framework</li>
-              <li>Advanced data augmentation techniques</li>
+              <li>Advanced data augmentation techniques to enhance model robustness</li>
             </ul>
           </CardContent>
         </Card>
 
-        <div className="flex justify-center mt-8">
+        <div className="relative min-h-screen w-full overflow-hidden">
+
+
+      <div className="container py-12 relative z-10 animate-fade-in space-y-2">
+        {/* Previous hero section and features grid remain the same */}
+        
+        {/* New How It Works Section */}
+        <section className="py-12 bg-card/30 backdrop-blur-sm rounded-2xl">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl mb-4">
+              <CardTitle>Deepfake Detection in 3 Simple Steps</CardTitle>
+              
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Our streamlined process makes it easy to detect manipulated media
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {[
+              {
+                icon: <FileUp className="h-12 w-12" />,
+                title: "Upload Media",
+                description: "Select an image for analysis and let the AI do the rest",
+                highlight: "Supports multiple file formats"
+              },
+              {
+                icon: <Search className="h-12 w-12" />,
+                title: "AI Analyzes Content",
+                description: "Our deep learning model processes the file and detects manipulation",
+                highlight: "Powered by ResNet architecture"
+              },
+              {
+                icon: <FileCheck className="h-12 w-12" />,
+                title: "Get Results",
+                description: "Receive an accuracy score and a confidence scores",
+                highlight: "Comprehensive analysis"
+              }
+            ].map((step, index) => (
+              <div 
+                key={index} 
+                className="relative p-6 rounded-xl bg-card/40 hover:bg-card/60 transition-all group"
+              >
+                <div className="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-xl font-bold">
+                  {index + 1}
+                </div>
+                <div className="flex flex-col items-center text-center space-y-4">
+                  <div className="text-primary transition-transform group-hover:scale-110">
+                    {step.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold">{step.title}</h3>
+                  <p className="text-muted-foreground">{step.description}</p>
+                  <span className="text-sm text-primary/80">{step.highlight}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* New Why Choose Us Section */}
+        <section className="py-12">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold mb-4">
+              Reliable, Fast, and Accurate Deepfake Detection
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Leading the way in AI-powered media authentication
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <Scale className="h-8 w-8" />,
+                title: "High Accuracy",
+                description: "Powered by state-of-the-art ResNet architecture",
+                stats: "93% accuracy rate"
+              },
+              {
+                icon: <Clock className="h-8 w-8" />,
+                title: "Fast Processing",
+                description: "Optimized for real-time analysis",
+                stats: "< 2 seconds processing time"
+              },
+              {
+                icon: <Workflow className="h-8 w-8" />,
+                title: "Secure & Scalable",
+                description: "API designed for security and scalability",   
+                stats: "Supports high traffic volumes"
+              }
+            ].map((feature, index) => (
+              <Card 
+                key={index}
+                className="backdrop-blur-sm bg-card/50 border-primary/20 hover:border-primary/40 transition-all hover:transform hover:scale-[1.02]"
+              >
+                <CardHeader>
+                  <div className="flex items-center gap-4">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      {feature.icon}
+                    </div>
+                    <div>
+                      <CardTitle>{feature.title}</CardTitle>
+                      <CardDescription>{feature.stats}</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <div className="flex flex-col items-center gap-6 py-2">
+          <h3 className="text-2xl font-semibold text-center">
+            Ready to Try Our Deepfake Detection?
+          </h3>
           <Link to="/demo">
-            <Button size="lg" className="gap-2 bg-primary/10 hover:bg-primary/20 backdrop-blur-sm">
+            <Button 
+              size="lg" 
+              className="gap-2 bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg transform transition-all hover:scale-105"
+            >
               Try the Demo
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-5 w-5" />
             </Button>
           </Link>
         </div>
+      </div>
+    </div>
 
-        {/* Floating Elements */}
-        <div className="absolute top-20 right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse" />
       </div>
     </div>
   );
