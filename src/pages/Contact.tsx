@@ -1,80 +1,136 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Linkedin, Github, Globe } from "lucide-react";
+import { Mail, Linkedin, Github, Globe, ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+
+const contactLinks = [
+  {
+    href: "https://mohammed-suhaib-1.netlify.app/",
+    icon: Globe,
+    title: "Portfolio Website",
+    description: "Explore my projects and work experience",
+    color: "text-green-500",
+  },
+  {
+    href: "mailto:mosuh64@gmail.com",
+    icon: Mail,
+    title: "Email",
+    description: "Get in touch via email",
+    color: "text-green-500",
+  },
+  {
+    href: "https://www.linkedin.com/in/mosuh64/",
+    icon: Linkedin,
+    title: "LinkedIn",
+    description: "Connect professionally",
+    color: "text-green-500",
+  },
+  {
+    href: "https://github.com/cyborgsuh",
+    icon: Github,
+    title: "GitHub",
+    description: "Check out my code repositories",
+    color: "text-green-500 dark:text-gray-300",
+  },
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
 
 const Contact = () => {
-  const contactLinks = [
-    {
-      href: "https://mohammed-suhaib-1.netlify.app/",
-      icon: Globe,
-      title: "Portfolio Website",
-      description: "Check out my work and projects",
-    },
-    {
-      href: "mailto:mosuh64@gmail.com",
-      icon: Mail,
-      title: "Email",
-      description: "Send me a message directly",
-    },
-    {
-      href: "https://www.linkedin.com/in/mosuh64/",
-      icon: Linkedin,
-      title: "LinkedIn",
-      description: "Connect with me professionally",
-    },
-    {
-      href: "https://github.com/cyborgsuh",
-      icon: Github,
-      title: "GitHub",
-      description: "Explore my code repositories",
-    },
-  ];
-
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <Card className="w-full max-w-2xl backdrop-blur-md bg-card/70 border border-primary/20 shadow-xl hover:shadow-primary/20 transition-all duration-500">
-        <CardHeader className="text-center space-y-4 pb-8">
-          <CardTitle className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-            Let's Connect
-          </CardTitle>
-          <p className="text-lg text-muted-foreground">
-            Reach out for collaborations or just to say hello!
-          </p>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {contactLinks.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group p-4 rounded-lg bg-secondary/30 hover:bg-secondary/50 
-                         border border-primary/10 hover:border-primary/30 
-                         transition-all duration-300 transform hover:-translate-y-1"
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b">
+      <div className="w-full max-w-4xl">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="space-y-8"
+        >
+          {/* Header Section */}
+          <Card className="backdrop-blur-md bg-card/90 border border-primary/20 shadow-lg">
+            <CardHeader className="text-center space-y-4">
+              <motion.div variants={itemVariants}>
+                <CardTitle className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                  Let's Connect
+                </CardTitle>
+              </motion.div>
+              <motion.p
+                variants={itemVariants}
+                className="text-lg text-muted-foreground max-w-2xl mx-auto"
               >
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 
-                              transition-colors duration-300">
-                    <item.icon className="h-6 w-6 text-primary group-hover:scale-110 
-                                      transition-transform duration-300" />
-                  </div>
-                  <div className="space-y-1">
-                    <h3 className="font-semibold text-foreground">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              </a>
+                I'm always open to new opportunities, collaborations, and interesting
+                conversations.
+              </motion.p>
+            </CardHeader>
+          </Card>
+
+          {/* Contact Links Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {contactLinks.map((link, index) => (
+              <motion.div key={index} variants={itemVariants}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+                >
+                  <Card className="h-full backdrop-blur-sm bg-card/80 border border-primary/20 
+                                 hover:border-primary/40 transition-all duration-300 
+                                 hover:shadow-lg hover:shadow-primary/5">
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-start space-x-4">
+                          <div className={`p-3 rounded-xl bg-primary/10 ${link.color}`}>
+                            <link.icon className="h-6 w-6" />
+                          </div>
+                          <div className="space-y-1">
+                            <h3 className="font-semibold text-lg flex items-center gap-2">
+                              {link.title}
+                              <ArrowUpRight className="h-4 w-4 opacity-0 -translate-y-1 
+                                                     group-hover:opacity-100 group-hover:translate-y-0 
+                                                     transition-all duration-300" />
+                            </h3>
+                            <p className="text-muted-foreground text-sm">
+                              {link.description}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </a>
+              </motion.div>
             ))}
           </div>
-          <div className="mt-8 text-center text-sm text-muted-foreground">
-            <p>Available for opportunities and collaborations</p>
-          </div>
-        </CardContent>
-      </Card>
+
+          {/* Footer Card */}
+          <Card className="backdrop-blur-sm bg-card/80 border border-primary/20">
+            <CardContent className="p-6 text-center">
+              <motion.p
+                variants={itemVariants}
+                className="text-muted-foreground"
+              >
+                Based in Dubai, UAE • Available for remote opportunities
+              </motion.p>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
     </div>
   );
 };
