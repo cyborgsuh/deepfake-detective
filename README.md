@@ -1,26 +1,12 @@
-# Welcome to your Lovable project
+# Deepfake Detective
 
-## Project info
+## Project Info
 
-**URL**: https://lovable.dev/projects/7e92e585-a8ce-4937-8e87-e47e1fe19101
+**URL**: [Deepfake Detective Project](https://deepfake-detection-app.netlify.app/)
 
-## How can I edit this code?
+## How to Clone and Run This Project
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/7e92e585-a8ce-4937-8e87-e47e1fe19101) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Follow these steps to clone and run the project locally:
 
 ```sh
 # Step 1: Clone the repository using the project's Git URL.
@@ -30,40 +16,72 @@ git clone <YOUR_GIT_URL>
 cd <YOUR_PROJECT_NAME>
 
 # Step 3: Install the necessary dependencies.
-npm i
+npm install
 
 # Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Project Structure
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+deepfake-detective/
+├── backend/
+│   ├── main.py
+│   ├── requirements.txt
+│   └── ...
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── App.tsx
+│   │   └── ...
+│   ├── public/
+│   ├── package.json
+│   └── ...
+├── README.md
+└── ...
+```
 
-**Use GitHub Codespaces**
+### Backend
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+The backend of this project is responsible for processing the uploaded videos/images and running the deepfake detection algorithms. It is built with:
 
-## What technologies are used for this project?
+- **FastAPI**: For handling server-side logic and creating API endpoints.
+- **Python**: For running the deepfake detection algorithms.
+- **PyTorch**: For machine learning models used in detection.
 
-This project is built with .
+#### Key Files
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- `main.py`: Main application file for the backend.
+- `requirements.txt`: Lists the Python dependencies.
 
-## How can I deploy this project?
+### Frontend
 
-Simply open [Lovable](https://lovable.dev/projects/7e92e585-a8ce-4937-8e87-e47e1fe19101) and click on Share -> Publish.
+The frontend of this project is built with:
 
-## I want to use a custom domain - is that possible?
+- **Vite**: For fast development and build.
+- **TypeScript**: For type-safe JavaScript.
+- **React**: For building user interfaces.
+- **shadcn-ui**: For UI components.
+- **Tailwind CSS**: For styling.
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+#### Key Files
+
+- `src/components/`: Contains reusable UI components.
+- `src/pages/`: Contains the different pages of the application.
+- `src/App.tsx`: Main application file for the frontend.
+
+### Key Pages
+
+- **Home Page**: Provides an overview of the project and its purpose.
+- **Detection Page**: Allows users to upload videos/images to detect deepfakes.
+- **Results Page**: Displays the results of the deepfake detection.
+- **Model Comparison Page**: Compares performance metrics across different ResNet architectures.
+- **Hyperparameters Page**: Displays model training parameters and configurations.
+- **Data Augmentation Page**: Explains preprocessing techniques used to enhance model performance.
+- **Contact Page**: Provides contact information and links.
+
+## Deployment
+
+This project is deployed at [Deepfake Detection App](https://deepfake-detection-app.netlify.app/).
