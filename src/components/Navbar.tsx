@@ -1,5 +1,6 @@
+
 import { motion } from "framer-motion";
-import { Brain, Home, GitCompare, Database, Sliders, Play, Mail, Menu, X } from "lucide-react";
+import { Home, GitCompare, Database, Sliders, Play, Mail, Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -87,13 +88,32 @@ export function Navbar() {
               className="relative"
             >
               <div className="absolute inset-0 bg-primary/20 rounded-full blur-md transform group-hover:scale-110 transition-transform" />
-              <Brain className="h-8 w-8 text-primary relative z-10" />
+              <img 
+                src="/facial-recognition-icon.png" 
+                alt="Facial Recognition" 
+                className="h-8 w-8 relative z-10" 
+                title="Facial Recognition icon by Icons8"
+              />
             </motion.div>
             <div className="flex flex-col">
               <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                 DeepFake Detective
               </span>
-              <span className="text-xs text-muted-foreground">AI-Powered Detection</span>
+              <span className="text-xs text-muted-foreground">
+                <a 
+                  target="_blank" 
+                  href="https://icons8.com/icon/7338/facial-recognition" 
+                  className="hover:text-primary transition-colors"
+                >
+                  Icon
+                </a> by <a 
+                  target="_blank" 
+                  href="https://icons8.com" 
+                  className="hover:text-primary transition-colors"
+                >
+                  Icons8
+                </a>
+              </span>
             </div>
           </Link>
 
