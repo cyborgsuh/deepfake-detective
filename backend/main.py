@@ -1,12 +1,12 @@
 
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 import torch
 import torch.nn as nn
 from PIL import Image
 import torchvision.transforms as transforms
 import io
-from typing import Type, TypeVar, List
+from typing import Type, TypeVar, List, Optional, Dict, Literal
 import numpy as np
 from resnet import ResNet, BasicBlock
 
@@ -21,27 +21,86 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize model globally
-model = None
+# Initialize model variables
+current_model = None
+current_model_name = None
+
+# Define model configurations
+MODEL_CONFIGS = {
+    "resnet34": {
+        "num_layers": 34,
+        "weights_path": "resnet_30.pth",  # File is named resnet_30.pth but it's ResNet34
+        "block": BasicBlock,
+        "num_classes": 2
+    },
+    "resnet50": {
+        "num_layers": 50,
+        "weights_path": "not-pretrained-1 ResNet 50.pth",
+        "block": BasicBlock,
+        "num_classes": 2
+    }
+}
 
 @app.get("/load-model")
-async def load_model():
-    global model
+async def load_model(model_name: Literal["resnet34", "resnet50"] = Query(..., description="Model to load (resnet34 or resnet50)")):
+    global current_model, current_model_name
+    
+    if model_name not in MODEL_CONFIGS:
+        raise HTTPException(status_code=400, detail=f"Invalid model name. Choose from: {', '.join(MODEL_CONFIGS.keys())}")
+    
     try:
+        config = MODEL_CONFIGS[model_name]
+        
         # Initialize the model with the correct architecture
-        model = ResNet(img_channels=3, num_layers=50, block=BasicBlock, num_classes=2)
+        model = ResNet(
+            img_channels=3, 
+            num_layers=config["num_layers"], 
+            block=config["block"], 
+            num_classes=config["num_classes"]
+        )
+        
         # Load the pre-trained weights
-        model.load_state_dict(torch.load("not-pretrained-1 ResNet 50.pth", map_location=torch.device('cpu')))
+        model.load_state_dict(torch.load(config["weights_path"], map_location=torch.device('cpu')))
         model.eval()  # Set to evaluation mode
-        return {"message": "Model loaded successfully"}
+        
+        # Update global model references
+        current_model = model
+        current_model_name = model_name
+        
+        return {
+            "status": "success",
+            "message": f"Model {model_name} loaded successfully",
+            "details": {
+                "architecture": f"ResNet-{config['num_layers']}",
+                "num_classes": config["num_classes"],
+                "weights_file": config["weights_path"]
+            }
+        }
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail=f"Model weights file not found for {model_name}")
     except Exception as e:
-        return {"error": str(e)}
+        raise HTTPException(status_code=500, detail=f"Failed to load model: {str(e)}")
+
+@app.get("/model-status")
+async def model_status():
+    if current_model is None:
+        return {"status": "no_model", "message": "No model currently loaded"}
+    
+    return {
+        "status": "loaded",
+        "model_name": current_model_name,
+        "details": MODEL_CONFIGS[current_model_name]
+    }
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
-    global model
-    if model is None:
-        return {"error": "Model not loaded. Please load the model first."}
+    global current_model
+    
+    if current_model is None:
+        raise HTTPException(
+            status_code=400, 
+            detail="No model loaded. Please load a model first using the /load-model endpoint."
+        )
     
     try:
         # Read and preprocess the image
@@ -63,18 +122,19 @@ async def predict(file: UploadFile = File(...)):
         
         # Make prediction
         with torch.no_grad():
-            outputs = model(image_tensor)
+            outputs = current_model(image_tensor)
             probabilities = torch.softmax(outputs, dim=1)
             predicted_class = torch.argmax(probabilities, dim=1).item()
             confidence = probabilities[0][predicted_class].item()
             
         return {
             "prediction": str(predicted_class),
-            "confidence": float(confidence)
+            "confidence": float(confidence),
+            "model_used": current_model_name
         }
     except Exception as e:
         print(f"Error during prediction: {str(e)}")  # Add server-side logging
-        return {"error": str(e)}
+        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
 
 if __name__ == "__main__":
     import uvicorn
