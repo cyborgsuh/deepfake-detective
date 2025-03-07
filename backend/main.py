@@ -1,12 +1,12 @@
 
-from fastapi import FastAPI, File, UploadFile, Query
+from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 import torch
 import torch.nn as nn
 from PIL import Image
 import torchvision.transforms as transforms
 import io
-from typing import Type, TypeVar, List, Optional, Literal
+from typing import Type, TypeVar, List
 import numpy as np
 from resnet import ResNet, BasicBlock
 
@@ -23,58 +23,25 @@ app.add_middleware(
 
 # Initialize model globally
 model = None
-current_model_type = None
 
 @app.get("/load-model")
-async def load_model(model_type: Literal["ResNet-34", "ResNet-50"] = "ResNet-50"):
-    global model, current_model_type
+async def load_model():
+    global model
     try:
-        # Determine model architecture based on the selected model type
-        if model_type == "ResNet-34":
-            num_layers = 34
-            model_file = "resnet_30.pth"  # File is named resnet_30.pth but is a ResNet-34 model
-            block = BasicBlock
-        elif model_type == "ResNet-50":
-            num_layers = 50
-            model_file = "not-pretrained-1 ResNet 50.pth"
-            block = BasicBlock
-        else:
-            return {"error": f"Unsupported model type: {model_type}. Supported types are 'ResNet-34' and 'ResNet-50'."}
-        
         # Initialize the model with the correct architecture
-        model = ResNet(img_channels=3, num_layers=num_layers, block=block, num_classes=2)
-        
+        model = ResNet(img_channels=3, num_layers=50, block=BasicBlock, num_classes=2)
         # Load the pre-trained weights
-        model.load_state_dict(torch.load(model_file, map_location=torch.device('cpu')))
+        model.load_state_dict(torch.load("not-pretrained-1 ResNet 50.pth", map_location=torch.device('cpu')))
         model.eval()  # Set to evaluation mode
-        
-        # Update current model type
-        current_model_type = model_type
-        
-        return {
-            "message": f"{model_type} model loaded successfully",
-            "model_type": model_type
-        }
-    except FileNotFoundError as e:
-        return {"error": f"Model file not found: {str(e)}"}
+        return {"message": "Model loaded successfully"}
     except Exception as e:
-        return {"error": f"Failed to load model: {str(e)}"}
-
-@app.get("/model-status")
-async def model_status():
-    global model, current_model_type
-    if model is None:
-        return {"status": "No model loaded"}
-    return {
-        "status": "Model loaded",
-        "model_type": current_model_type
-    }
+        return {"error": str(e)}
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
-    global model, current_model_type
+    global model
     if model is None:
-        return {"error": "No model loaded. Please load a model first using the /load-model endpoint."}
+        return {"error": "Model not loaded. Please load the model first."}
     
     try:
         # Read and preprocess the image
@@ -103,8 +70,7 @@ async def predict(file: UploadFile = File(...)):
             
         return {
             "prediction": str(predicted_class),
-            "confidence": float(confidence),
-            "model_used": current_model_type
+            "confidence": float(confidence)
         }
     except Exception as e:
         print(f"Error during prediction: {str(e)}")  # Add server-side logging
