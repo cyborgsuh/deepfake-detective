@@ -26,34 +26,34 @@ const ModelComparison = () => {
   const modelData: Record<string, ModelData> = {
     resnet50: {
       metrics: [
-        { label: "Accuracy", value: "95.8%" },
-        { label: "Training Time", value: "24 hours" },
-        { label: "F1 Score", value: "0.94" },
-        { label: "Precision", value: "0.95" },
-        { label: "Recall", value: "0.96" },
-        { label: "Epochs", value: "100" }
+        { label: "Accuracy", value: "93.92%" },
+        { label: "Training Time", value: "1.7 hours" },
+        { label: "F1 Score", value: "0.9381" },
+        { label: "Precision", value: "0.9490" },
+        { label: "Recall", value: "0.9274" },
+        { label: "Epochs", value: "10" }
       ],
       matrix: {
-        truePositive: 475,
-        falsePositive: 25,
-        falseNegative: 20,
-        trueNegative: 480,
+        truePositive: 5222,
+        falsePositive: 270,
+        falseNegative: 393,
+        trueNegative: 5020,
       }
     },
     resnet34: {
       metrics: [
-        { label: "Accuracy", value: "92.5%" },
-        { label: "Training Time", value: "36 hours" },
-        { label: "F1 Score", value: "0.91" },
-        { label: "Precision", value: "0.90" },
-        { label: "Recall", value: "0.93" },
-        { label: "Epochs", value: "100" }
+        { label: "Accuracy", value: "93.87%" },
+        { label: "Training Time", value: "1.05 hours" },
+        { label: "F1 Score", value: "0.9363" },
+        { label: "Precision", value: "0.9664" },
+        { label: "Recall", value: "0.9080" },
+        { label: "Epochs", value: "10" }
       ],
       matrix: {
-        truePositive: 450,
-        falsePositive: 50,
-        falseNegative: 35,
-        trueNegative: 465,
+        truePositive: 5321,
+        falsePositive: 171,
+        falseNegative: 498,
+        trueNegative: 4915,
       }
     }
   };
