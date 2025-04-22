@@ -1,5 +1,4 @@
-
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,7 +12,13 @@ interface PredictionResult {
   confidence: number;
 }
 
-export const ModelViewer = () => {
+interface ModelViewerProps {
+  onLoadModel?: () => void;
+  allowOperation?: boolean;
+  forceLoad?: boolean;
+}
+
+export const ModelViewer = ({ onLoadModel, allowOperation = false, forceLoad = false }: ModelViewerProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [prediction, setPrediction] = useState<PredictionResult | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -22,6 +27,11 @@ export const ModelViewer = () => {
   const { toast } = useToast();
 
   const handleLoadModel = async () => {
+    if (!allowOperation) {
+      onLoadModel?.();
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
     try {
@@ -42,6 +52,13 @@ export const ModelViewer = () => {
       setIsLoading(false);
     }
   };
+
+  // Effect to handle force load
+  useEffect(() => {
+    if (forceLoad && allowOperation) {
+      handleLoadModel();
+    }
+  }, [forceLoad, allowOperation]);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
