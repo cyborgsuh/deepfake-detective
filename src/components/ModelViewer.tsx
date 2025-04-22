@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,7 +14,12 @@ interface PredictionResult {
   model_used?: string;
 }
 
-export const ModelViewer = () => {
+interface ModelViewerProps {
+  onInteract?: () => boolean;
+  forceLoad?: boolean;
+}
+
+export const ModelViewer = ({ onInteract, forceLoad }: ModelViewerProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [prediction, setPrediction] = useState<PredictionResult | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -42,7 +46,16 @@ export const ModelViewer = () => {
     checkModelStatus();
   }, []);
 
+  useEffect(() => {
+    if (forceLoad) {
+      handleLoadModel();
+    }
+  }, [forceLoad]);
+
   const handleLoadModel = async () => {
+    if (onInteract && onInteract()) {
+      return;
+    }
     setIsLoading(true);
     setError(null);
     try {
@@ -75,6 +88,9 @@ export const ModelViewer = () => {
   };
 
   const handlePredict = async () => {
+    if (onInteract && onInteract()) {
+      return;
+    }
     if (!selectedFile) {
       toast({
         title: "No Image Selected",
