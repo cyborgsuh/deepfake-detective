@@ -59,14 +59,20 @@ git clone https://github.com/cyborgsuh/deepfake-detective.git
 # Step 2: Navigate into the project folder
 cd deepfake-detective
 
-# Step 3: Install dependencies
+# Step 3: Install frontend dependencies
 npm install
 
-# Step 4: Start the development server
+# Step 4: Start the frontend development server
 npm run dev
+
+# Step 5: Open a new terminal and navigate to backend
+cd backend
+
+# Step 6: Start the backend server
+uvicorn main:app --host 0.0.0.0 --port 5000
 ```
 
-🎉 That’s it! Your local version of DeFake It is now up and running!
+🎉 That's it! Your local version of DeFake It is now up and running with both frontend and backend servers!
 
 ## 📂 Project Structure
 
