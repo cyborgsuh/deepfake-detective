@@ -1,21 +1,8 @@
 import { ModelViewer } from "@/components/ModelViewer";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 
 const Demo = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [allowOperation, setAllowOperation] = useState(false);
   const [forceLoad, setForceLoad] = useState(false);
-
-  const handleInteract = () => {
-    if (!allowOperation) {
-      setShowModal(true);
-      return true; // Block operation
-    }
-    return false; // Allow operation
-  };
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
@@ -40,7 +27,7 @@ const Demo = () => {
         {/* Model viewer section */}
         <div>
           <div className="max-w-4xl mx-auto">
-            <ModelViewer onInteract={handleInteract} forceLoad={forceLoad} />
+            <ModelViewer forceLoad={forceLoad} />
           </div>
         </div>
 
@@ -71,51 +58,7 @@ const Demo = () => {
         </div>
       </div>
 
-      <Dialog open={showModal} onOpenChange={setShowModal}>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>🧪 Test the Deepfake Detector Locally</DialogTitle>
-    </DialogHeader>
-    <div className="space-y-4">
-      <p className="text-muted-foreground">
-        This demo is for testing and demonstration purposes only. The backend isn't always live because running it continuously incurs costs.
-      </p>
-      <p className="text-muted-foreground">
-        To try it out, you can run the project locally by setting up the backend yourself:
-      </p>
-      <ul className="space-y-2 list-disc pl-4">
-        <li>
-          Visit our{" "}
-          <a href="https://github.com/cyborgsuh/deepfake-detective" className="text-primary hover:underline">
-             GitHub repository
-          </a>{" "}
-          for full setup instructions.
-        </li>
-        <li>
-          If you’re unable to set it up,{" "}
-          <Link to="/contact" className="text-primary hover:underline">
-            send me a message
-          </Link>{" "}
-          and I can spin up the backend temporarily for you.
-        </li>
-      </ul>
-      <div className="flex justify-end space-x-2 pt-4">
-        <Button variant="ghost" onClick={() => setShowModal(false)}>
-          Cancel
-        </Button>
-        <Button
-          onClick={() => {
-            setAllowOperation(true);
-            setForceLoad(true);
-            setShowModal(false);
-          }}
-        >
-          Continue Anyway
-        </Button>
-      </div>
-    </div>
-  </DialogContent>
-</Dialog>
+
 
 
     </div>
